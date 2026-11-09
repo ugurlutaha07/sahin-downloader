@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data: file:; media-src 'self' https: file: data: blob:; style-src 'self' 'unsafe-inline'">
+<title>Şahin Downloader</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+    <symbol id="i-convert" viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+    <symbol id="i-radio" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="i-film" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+    <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></symbol>
+    <symbol id="i-top" viewBox="0 0 24 24"><line x1="5" y1="4" x2="19" y2="4"/><line x1="12" y1="20" x2="12" y2="8"/><polyline points="6 13 12 7 18 13"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol>
+    <symbol id="i-type" viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></symbol>
+    <symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></symbol>
+    <symbol id="i-power" viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></symbol>
+  </defs>
+</svg>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="build/icon-128.png" alt="" class="logo">
+      <div class="brand-t"><b>Şahin Downloader</b><span>Medya İndirme ve Dönüştürme</span></div>
+    </div>
+
+    <div class="navgroup">Çalışma Alanı</div>
+    <nav>
+      <button class="nav active" data-page="dl"><svg><use href="#i-download"/></svg>İndirme</button>
+      <button class="nav" data-page="cv"><svg><use href="#i-convert"/></svg>Dönüştürme</button>
+      <button class="nav" data-page="im"><svg><use href="#i-image"/></svg>Görsel Arama</button>
+      <button class="nav" data-page="tg"><svg><use href="#i-tag"/></svg>Etiket Düzenleyici</button>
+      <button class="nav" data-page="rn"><svg><use href="#i-type"/></svg>Toplu Adlandırma</button>
+    </nav>
+    <div class="navgroup">Yapılandırma</div>
+    <nav><button class="nav" data-page="pr"><svg><use href="#i-layers"/></svg>Ön Ayarlar</button></nav>
+    <div class="navgroup">Kütüphane</div>
+    <nav>
+      <button class="nav" data-page="hs"><svg><use href="#i-clock"/></svg>Geçmiş</button>
+      <button class="nav" data-page="fw"><svg><use href="#i-radio"/></svg>Kaynak Takibi</button>
+    </nav>
+    <div class="sp"></div>
+    <nav><button class="nav" data-page="st"><svg><use href="#i-settings"/></svg>Ayarlar</button></nav>
+    <div class="side-foot">
+      <div id="status"><i class="dot"></i><span>Başlatılıyor…</span></div>
+      <button class="btn quiet sm" id="btnUpd">İndirme motorunu güncelle</button>
+    </div>
+  </aside>
+
+  <main>
+    <div class="drag"></div>
+
+    <!-- İNDİRME -->
+    <section class="page active" id="page-dl">
+      <header class="phead"><div><h1>İndirme</h1>
+        <p class="sub">Bağlantıları ekleyin, çıktı biçimini seçin ve kuyruğa alın. İndirme sürerken yeni bağlantılar eklenebilir; seçilen sayıda içerik eş zamanlı olarak indirilir.</p></div></header>
+
+      <div class="card">
+        <div class="card-title">Kaynak bağlantıları</div>
+        <textarea id="url" rows="2" placeholder="Bağlantıları buraya yapıştırın (her satıra bir bağlantı). YouTube, Spotify, SoundCloud, TikTok, Instagram, X, Twitch, Vimeo ve diğer desteklenen siteler."></textarea>
+        <div class="chips" id="chips"></div>
+        <div class="row" style="margin-top:12px">
+          <span class="sp"></span>
+          <button class="btn primary" id="btnFetch"><svg><use href="#i-plus"/></svg><span>Listeye ekle</span></button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Çıktı seçenekleri</div>
+        <div class="presetbar" id="pb-dl"></div>
+        <div class="row wrap">
+          <div class="seg" id="modeSeg">
+            <button class="on" data-v="video"><svg><use href="#i-film"/></svg>Video</button>
+            <button data-v="audio"><svg><use href="#i-music"/></svg>Ses</button>
+            <button data-v="subs"><svg><use href="#i-type"/></svg>Altyazı</button>
+          </div>
+          <label class="fld" id="vfWrap"><span>Biçim</span>
+            <select id="vfmt"><option value="mp4">MP4</option><option value="mkv">MKV</option><option value="webm">WebM</option></select></label>
+          <label class="fld" id="qWrap"><span>Çözünürlük</span>
+            <select id="quality">
+              <option value="best">En yüksek</option><option value="4320">8K</option><option value="2160">4K</option><option value="1440">1440p</option>
+              <option value="1080">1080p</option><option value="720">720p</option><option value="480">480p</option><option value="360">360p</option><option value="240">240p</option>
+            </select></label>
+          <label class="fld hidden" id="afWrap"><span>Biçim</span>
+            <select id="afmt"><option value="mp3">MP3</option><option value="m4a">M4A</option><option value="aac">AAC</option><option value="opus">Opus</option><option value="ogg">OGG</option><option value="flac">FLAC</option><option value="wav">WAV</option></select></label>
+          <label class="fld hidden" id="aWrap"><span>Bit hızı</span>
+            <select id="abr"><option value="320">320 kb/sn</option><option value="256">256 kb/sn</option><option value="192">192 kb/sn</option><option value="128">128 kb/sn</option><option value="96">96 kb/sn</option></select></label>
+          <label class="fld" title="Aynı anda indirilecek en fazla içerik sayısı"><span>Eş zamanlı</span>
+            <select id="conc"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>8</option></select></label>
+        </div>
+
+        <details class="adv">
+          <summary>Gelişmiş seçenekler</summary>
+          <div class="adv-body">
+            <div class="row wrap">
+              <span class="lbl"><svg><use href="#i-scissors"/></svg>Bölüm kırpma</span>
+              <label class="fld"><span>Başlangıç</span><input type="text" id="ss" placeholder="0:00"></label>
+              <label class="fld"><span>Bitiş</span><input type="text" id="to" placeholder="Sonuna kadar"></label>
+              <span class="hint">Biçim: sn, dk:sn veya sa:dk:sn. Boş bırakılırsa içeriğin tamamı indirilir.</span>
+            </div>
+            <div class="checks">
+              <label class="check"><input type="checkbox" id="numbered"> Listeleri klasörlere ayır ve numaralandır</label>
+              <label class="check" id="subsWrap"><input type="checkbox" id="subs"> Altyazıları videoya göm</label>
+              <label class="check"><input type="checkbox" id="embedThumb"> Kapak görselini dosyaya göm</label>
+              <label class="check" id="normWrap"><input type="checkbox" id="normalize"> Ses seviyesini normalleştir</label>
+              <label class="check" id="trimWrap"><input type="checkbox" id="trimSilence"> Baştaki ve sondaki sessizliği kes</label>
+              <label class="check" id="subsFileWrap"><input type="checkbox" id="subsFile"> Altyazıyı ayrıca .srt dosyası olarak kaydet</label>
+              <label class="check" id="splitWrap"><input type="checkbox" id="splitChapters"> Bölüm işaretlerine göre parçalara ayır</label>
+              <label class="check" id="liveWrap"><input type="checkbox" id="liveFromStart"> Canlı yayınları baştan kaydet ve yayın başlayana kadar bekle</label>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="card list-card">
+        <div class="list-head">
+          <label class="check"><input type="checkbox" id="all" checked> Tümünü seç</label>
+          <b id="title">İndirme listesi</b>
+          <span class="sp"></span>
+          <span id="count" class="muted"></span>
+          <button class="btn quiet sm" id="btnClearList">Tamamlananları temizle</button>
+        </div>
+        <div id="list"><div class="empty"><svg><use href="#i-download"/></svg><b>Liste boş</b><span>Bir bağlantı ekleyin. Oynatma listeleri ve Spotify listeleri öğe öğe görüntülenir.</span></div></div>
+      </div>
+
+      <p class="note" id="spNote">Spotify içerikleri korumalıdır; bu nedenle şarkılar Spotify'dan değil, ad ve sanatçı bilgisiyle eşleşen kamuya açık bir kaynaktan temin edilir. Şarkı adı, sanatçı ve kapak görseli otomatik olarak dosyaya işlenir.</p>
+
+      <div class="foot">
+        <div class="sched">
+          <svg><use href="#i-clock"/></svg>
+          <input type="time" id="schedTime">
+          <button class="btn quiet sm" id="btnSched">Başlamayı zamanla</button>
+          <button class="btn quiet sm hidden" id="btnSchedCancel">Planı iptal et</button>
+          <span id="schedInfo" class="muted"></span>
+          <label class="check" id="shutWrap"><input type="checkbox" id="shutdownAfter"> İşlem bitince bilgisayarı kapat</label>
+        </div>
+        <span class="sp"></span>
+        <span id="overall" class="muted"></span>
+      </div>
+      <div class="foot sticky">
+        <button class="btn quiet" id="btnFolder"><svg><use href="#i-folder"/></svg><span id="folder"></span></button>
+        <button class="btn quiet" id="btnOpen">Klasörü aç</button>
+        <span class="sp"></span>
+        <button class="btn quiet" id="btnPause"><svg><use href="#i-pause"/></svg><span>Kuyruğu duraklat</span></button>
+        <button class="btn quiet" id="btnCancel" disabled>Tümünü iptal et</button>
+        <button class="btn primary" id="btnDl" disabled>İndir</button>
+      </div>
+    </section>
+
+    <!-- DÖNÜŞTÜRME -->
+    <section class="page" id="page-cv">
+      <header class="phead"><div><h1>Dönüştürme</h1>
+        <p class="sub">Video ve ses dosyalarını istediğiniz biçime dönüştürün; isterseniz bölüm kırpın, hedef dosya boyutuna sıkıştırın veya ses seviyesini düzenleyin.</p></div></header>
+
+      <div class="card drop" id="drop">
+        <svg class="big"><use href="#i-upload"/></svg>
+        <div><b>Dosyaları bu alana sürükleyip bırakın</b><span class="muted">ya da bilgisayarınızdan seçin</span></div>
+        <button class="btn quiet" id="btnPick">Dosya seç</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Dönüştürme seçenekleri</div>
+        <div class="presetbar" id="pb-cv"></div>
+        <div class="row wrap">
+          <label class="fld"><span>Çıktı biçimi</span>
+            <select id="fmt">
+              <optgroup label="Video">
+                <option value="mp4">MP4</option><option value="mkv">MKV</option><option value="mov">MOV</option><option value="webm">WebM</option>
+                <option value="avi">AVI</option><option value="m4v">M4V</option><option value="flv">FLV</option><option value="wmv">WMV</option>
+                <option value="mpg">MPG</option><option value="ts">TS</option><option value="gif">GIF</option>
+              </optgroup>
+              <optgroup label="Ses">
+                <option value="mp3">MP3</option><option value="m4a">M4A</option><option value="aac">AAC</option><option value="wav">WAV</option>
+                <option value="flac">FLAC</option><option value="ogg">OGG</option><option value="opus">Opus</option><option value="wma">WMA</option>
+                <option value="aiff">AIFF</option><option value="ac3">AC3</option><option value="mp2">MP2</option>
+              </optgroup>
+            </select></label>
+          <label class="fld"><span>Kalite</span>
+            <select id="cvQuality"><option value="high">Yüksek</option><option value="balanced">Dengeli</option><option value="small">Küçük dosya</option></select></label>
+          <label class="fld"><span>Çözünürlük</span>
+            <select id="cvRes"><option value="orig">Orijinal</option><option value="2160">2160p</option><option value="1080">1080p</option><option value="720">720p</option><option value="480">480p</option><option value="360">360p</option></select></label>
+          <label class="fld" title="Doldurulursa dosya bu boyuta sıkıştırılır"><span>Hedef boyut (MB)</span><input type="text" id="cvMb" placeholder="Otomatik" style="width:100px"></label>
+        </div>
+        <details class="adv">
+          <summary>Gelişmiş seçenekler</summary>
+          <div class="adv-body">
+            <div class="row wrap">
+              <span class="lbl"><svg><use href="#i-scissors"/></svg>Bölüm kırpma</span>
+              <label class="fld"><span>Başlangıç</span><input type="text" id="cvSs" placeholder="0:00"></label>
+              <label class="fld"><span>Bitiş</span><input type="text" id="cvTo" placeholder="Sonuna kadar"></label>
+              <span class="hint">Kırpma, listedeki tüm dosyalara uygulanır.</span>
+            </div>
+            <div class="checks">
+              <label class="check"><input type="checkbox" id="cvNormalize"> Ses seviyesini normalleştir</label>
+              <label class="check"><input type="checkbox" id="cvTrim"> Baştaki ve sondaki sessizliği kes</label>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="card list-card"><div id="cvList"><div class="empty"><svg><use href="#i-convert"/></svg><b>Dosya eklenmedi</b><span>Dönüştürmek istediğiniz dosyaları ekleyin.</span></div></div></div>
+
+      <div class="foot sticky">
+        <button class="btn quiet" id="btnCvFolder"><svg><use href="#i-folder"/></svg><span id="cvFolder"></span></button>
+        <button class="btn quiet" id="btnCvOpen">Klasörü aç</button>
+        <span id="cvOverall" class="muted"></span>
+        <span class="sp"></span>
+        <button class="btn quiet" id="btnClear">Listeyi temizle</button>
+        <button class="btn quiet" id="btnCvCancel" disabled>İptal</button>
+        <button class="btn primary" id="btnCv" disabled>Dönüştür</button>
+      </div>
+    </section>
+
+    <!-- ÖN AYARLAR -->
+    <section class="page" id="page-pr">
+      <header class="phead"><div><h1>Ön Ayarlar</h1>
+        <p class="sub">Sık kullandığınız çıktı ayarlarını tek tıkla uygulayın. Hazır ön ayarları kullanabilir, kendi ön ayarlarınızı oluşturabilir, düzenleyebilir, varsayılan yapabilir ve başka bir bilgisayara aktarabilirsiniz.</p></div>
+        <div class="ph-actions">
+          <button class="btn quiet" id="pr-import"><svg><use href="#i-upload"/></svg>İçe aktar</button>
+          <button class="btn quiet" id="pr-export"><svg><use href="#i-save"/></svg>Özel ön ayarları dışa aktar</button>
+        </div></header>
+      <div class="scroll" id="pr-body"></div>
+    </section>
+
+    <!-- TOPLU ADLANDIRMA -->
+    <section class="page" id="page-rn">
+      <header class="phead"><div><h1>Toplu Adlandırma</h1>
+        <p class="sub">Birden fazla dosyayı bir şablona göre yeniden adlandırın. Ses dosyalarında başlık, sanatçı, albüm gibi etiket bilgileri şablonda kullanılabilir. Uygulamadan önce sonucu önizleyebilir, sonradan geri alabilirsiniz.</p></div>
+        <div class="ph-actions"><button class="btn quiet" id="rn-pick"><svg><use href="#i-folder"/></svg>Dosya ekle</button></div></header>
+      <div class="card">
+        <div class="card-title">Ad şablonu</div>
+        <div class="row wrap">
+          <input type="text" id="rn-tpl" style="flex:1;min-width:280px" placeholder="{sanatçı} - {başlık}">
+          <label class="fld"><span>Harf düzeni</span>
+            <select id="rn-case"><option value="none">Olduğu gibi</option><option value="title">Her Sözcüğün İlk Harfi Büyük</option><option value="lower">küçük harf</option><option value="upper">BÜYÜK HARF</option></select></label>
+        </div>
+        <div class="checks">
+          <label class="check"><input type="checkbox" id="rn-ascii"> Türkçe karakterleri sadeleştir (ç→c, ğ→g, ş→s …)</label>
+          <label class="check"><input type="checkbox" id="rn-us"> Boşlukları alt çizgiye çevir</label>
+        </div>
+        <div class="hint" style="margin-top:10px">Kullanılabilir alanlar: <code>{ad}</code> özgün ad · <code>{başlık}</code> · <code>{sanatçı}</code> · <code>{albüm}</code> · <code>{yıl}</code> · <code>{tür}</code> · <code>{parça}</code> · <code>{sıra}</code> · <code>{sıra2}</code> · <code>{sıra3}</code>. Boş kalan alanlar ve fazla ayraçlar otomatik temizlenir.</div>
+      </div>
+      <div class="card list-card"><div id="rn-list"></div></div>
+      <div class="foot sticky">
+        <span id="rn-msg" class="muted"></span><span class="sp"></span>
+        <button class="btn quiet" id="rn-clear">Listeyi temizle</button>
+        <button class="btn quiet" id="rn-undo" disabled><svg><use href="#i-undo"/></svg>Son işlemi geri al</button>
+        <button class="btn primary" id="rn-apply" disabled>Yeniden adlandır</button>
+      </div>
+    </section>
+
+    <!-- GÖRSEL ARAMA -->
+    <section class="page" id="page-im">
+      <header class="phead"><div><h1>Görsel Arama</h1>
+        <p class="sub">Açık lisanslı görselleri arayın ve çözünürlüğe göre filtreleyerek indirin. Kaynaklar: Wikimedia Commons ve Openverse. Her görselin lisans ve sanatçı bilgisi gösterilir; kullanmadan önce lisans koşullarını denetleyin.</p></div></header>
+      <div class="card">
+        <div class="row wrap">
+          <input type="text" id="im-q" placeholder="Aranacak ifade (örn. kartal, İstanbul, dağ manzarası)" style="flex:1;min-width:240px">
+          <label class="fld"><span>Kaynak</span>
+            <select id="im-src"><option value="wikimedia">Wikimedia Commons (yüksek çözünürlük)</option><option value="openverse">Openverse</option></select></label>
+          <label class="fld"><span>Çözünürlük</span>
+            <select id="im-size"><option value="0">Tümü</option><option value="1280">HD (1280 px ve üzeri)</option><option value="1920">Full HD (1920 px ve üzeri)</option><option value="2560">2K (2560 px ve üzeri)</option><option value="3840">Ultra HD 4K (3840 px ve üzeri)</option></select></label>
+          <label class="fld"><span>Sırala</span>
+            <select id="im-sort"><option value="rel">İlgililik</option><option value="big">Çözünürlük (büyükten küçüğe)</option></select></label>
+          <button class="btn primary" id="im-go">Ara</button>
+        </div>
+      </div>
+      <div class="card list-card">
+        <div class="list-head">
+          <label class="check"><input type="checkbox" id="im-all"> Tümünü seç</label>
+          <b id="im-title">Sonuçlar</b><span class="sp"></span><span id="im-count" class="muted"></span>
+          <button class="btn quiet sm" id="im-more" disabled>Daha fazla yükle</button>
+        </div>
+        <div id="im-grid"><div class="empty"><svg><use href="#i-image"/></svg><b>Arama yapılmadı</b><span>Bir ifade yazıp “Ara”ya basın. Seçtiğiniz görselleri indirme klasörünüzdeki “Görseller” klasörüne kaydeder.</span></div></div>
+      </div>
+      <div class="foot sticky">
+        <span class="muted" id="im-msg"></span><span class="sp"></span>
+        <button class="btn primary" id="im-dl" disabled>Seçilenleri indir</button>
+      </div>
+    </section>
+
+    <!-- ETİKET DÜZENLEYİCİ -->
+    <section class="page" id="page-tg">
+      <header class="phead"><div><h1>Etiket Düzenleyici</h1>
+        <p class="sub">Ses dosyalarının başlık, sanatçı, albüm ve kapak bilgilerini görüntüleyin ve düzenleyin. MP3, M4A ve FLAC dosyalarında kapak görseli desteklenir.</p></div>
+        <div class="ph-actions"><button class="btn quiet" id="t-open"><svg><use href="#i-folder"/></svg>Dosya aç</button></div></header>
+
+      <div class="card" id="t-empty"><div class="empty"><svg><use href="#i-tag"/></svg><b>Dosya seçilmedi</b><span>Düzenlemek için bir ses dosyası açın veya Geçmiş sayfasından “Etiketle” düğmesini kullanın.</span></div></div>
+
+      <div class="card hidden" id="t-card">
+        <div class="tagwrap">
+          <div class="cover">
+            <div class="cover-img" id="t-coverbox"><svg><use href="#i-image"/></svg></div>
+            <button class="btn quiet sm" id="t-coverset">Kapak değiştir</button>
+            <button class="btn quiet sm" id="t-coverrm">Kapağı kaldır</button>
+            <span class="hint" id="t-covernote"></span>
+          </div>
+          <div class="tagform">
+            <div class="t-file" id="t-name"></div>
+            <div class="grid2">
+              <label class="fld col"><span>Başlık</span><input type="text" id="t-title"></label>
+              <label class="fld col"><span>Sanatçı</span><input type="text" id="t-artist"></label>
+              <label class="fld col"><span>Albüm</span><input type="text" id="t-album"></label>
+              <label class="fld col"><span>Albüm sanatçısı</span><input type="text" id="t-albumartist"></label>
+              <label class="fld col"><span>Yıl</span><input type="text" id="t-date"></label>
+              <label class="fld col"><span>Tür</span><input type="text" id="t-genre"></label>
+              <label class="fld col"><span>Parça no</span><input type="text" id="t-track"></label>
+              <label class="fld col"><span>Yorum</span><input type="text" id="t-comment"></label>
+            </div>
+            <div class="row" style="margin-top:14px">
+              <button class="btn quiet sm" id="t-fromname">Dosya adından doldur (Sanatçı - Başlık)</button>
+              <span class="sp"></span>
+              <span id="t-msg" class="muted"></span>
+              <button class="btn quiet" id="t-reset">Geri al</button>
+              <button class="btn primary" id="t-save">Kaydet</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GEÇMİŞ -->
+    <section class="page" id="page-hs">
+      <header class="phead"><div><h1>Geçmiş</h1>
+        <p class="sub">Tamamlanan indirme ve dönüştürme işlemleri.</p></div>
+        <div class="ph-actions"><button class="btn quiet" id="h-clear"><svg><use href="#i-trash"/></svg>Geçmişi temizle</button></div></header>
+      <div class="card" style="padding:12px 16px">
+        <div class="row wrap">
+          <input type="text" id="h-search" placeholder="Geçmişte ara…" style="flex:1;min-width:200px">
+          <label class="fld"><span>Tür</span>
+            <select id="h-filter"><option value="all">Tümü</option><option value="download">İndirilenler</option><option value="convert">Dönüştürülenler</option></select></label>
+        </div>
+      </div>
+      <div class="card list-card"><div id="h-list"></div></div>
+    </section>
+
+    <!-- KAYNAK TAKİBİ -->
+    <section class="page" id="page-fw">
+      <header class="phead"><div><h1>Kaynak Takibi</h1>
+        <p class="sub">Bir kanalı, oynatma listesini veya profili takibe alın. Yeni içerik yayınlandığında otomatik olarak indirme kuyruğuna eklenir. Denetim yalnızca uygulama çalışırken yapılır (tepsi modu açıksa arka planda da çalışır).</p></div>
+        <div class="ph-actions"><button class="btn quiet" id="f-check"><svg><use href="#i-refresh"/></svg>Tümünü şimdi denetle</button></div></header>
+      <div class="card">
+        <div class="card-title">Yeni kaynak ekle</div>
+        <div class="row wrap">
+          <input type="text" id="f-url" placeholder="Kanal, profil veya oynatma listesi bağlantısı" style="flex:1;min-width:260px">
+          <label class="fld"><span>Çıktı</span><select id="f-mode"><option value="video">Video</option><option value="audio">Ses</option></select></label>
+          <button class="btn primary" id="f-add"><svg><use href="#i-plus"/></svg>Takibe al</button>
+        </div>
+        <div class="hint" id="f-msg" style="margin-top:8px">Takibe alındığı anda mevcut içerikler indirilmez; yalnızca bundan sonra yayınlananlar eklenir.</div>
+      </div>
+      <div class="card list-card"><div id="f-list"></div></div>
+    </section>
+
+    <!-- AYARLAR -->
+    <section class="page" id="page-st">
+      <header class="phead"><div><h1>Ayarlar</h1><p class="sub">Görünüm, klasörler, indirme davranışı ve sistem tercihleri.</p></div></header>
+      <div class="scroll">
+        <div class="gtitle">Görünüm</div>
+        <div class="card settings">
+          <div class="srow col"><div><b>Tasarım</b><span>Uygulamanın renk düzenini seçin.</span></div><div class="designs" id="s-designs"></div></div>
+          <div class="srow"><div><b>Renk modu</b><span>Açık, koyu veya sistem ayarını izleyin.</span></div>
+            <select id="s-theme"><option value="system">Sistem</option><option value="light">Açık</option><option value="dark">Koyu</option></select></div>
+          <div class="srow"><div><b>Yazı ve arayüz boyutu</b><span>Tüm arayüzü ölçekler.</span></div>
+            <select id="s-zoom"><option value="0.9">Küçük</option><option value="1">Normal</option><option value="1.1">Büyük</option><option value="1.2">Çok büyük</option></select></div>
+        </div>
+
+        <div class="gtitle">Klasörler</div>
+        <div class="card settings">
+          <div class="srow"><div><b>İndirme klasörü</b><span id="s-folder-t"></span></div><button class="btn quiet" id="s-folder">Değiştir</button></div>
+          <div class="srow"><div><b>Dönüştürme klasörü</b><span id="s-cvfolder-t"></span></div><button class="btn quiet" id="s-cvfolder">Değiştir</button></div>
+        </div>
+
+        <div class="gtitle">İndirme</div>
+        <div class="card settings">
+          <div class="srow"><div><b>Dosya adı biçimi</b><span>İndirilen dosyaların adlandırılma şekli.</span></div>
+            <select id="s-nameTpl"><option value="title">Başlık</option><option value="uploader-title">Kanal - Başlık</option></select></div>
+          <div class="srow"><div><b>Hız sınırı</b><span>Örnek: 2M veya 500K. Boş bırakılırsa sınırsız.</span></div><input type="text" id="s-rate" placeholder="Sınırsız"></div>
+          <div class="srow"><div><b>Galeri başına en fazla dosya</b><span>Fotoğraf galerisi, albüm ve kategori bağlantılarında indirilecek en çok görsel sayısı.</span></div>
+            <select id="s-galleryMax"><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="200">200</option><option value="500">500</option><option value="0">Sınırsız</option></select></div>
+          <div class="srow"><div><b>Altyazı dilleri</b><span>Virgülle ayırın. Örnek: tr,en</span></div><input type="text" id="s-subLang" placeholder="tr,en"></div>
+        </div>
+
+        <div class="gtitle">Hesap erişimi</div>
+        <div class="card settings">
+          <div class="srow"><div><b>Tarayıcı oturumu (çerezler)</b><span>Yaş sınırlı veya üyelik gerektiren içerikler için kullanılır. Chrome ve Edge'in yeni sürümlerinde çalışmayabilir; bu durumda Firefox'u veya bir cookies.txt dosyasını tercih edin.</span></div>
+            <select id="s-cookies"><option value="none">Kullanma</option><option value="firefox">Firefox</option><option value="chrome">Chrome</option><option value="edge">Microsoft Edge</option><option value="brave">Brave</option><option value="opera">Opera</option><option value="vivaldi">Vivaldi</option><option value="file">cookies.txt dosyası</option></select></div>
+          <div class="srow hidden" id="s-cookiefile-row"><div><b>cookies.txt dosyası</b><span id="s-cookiefile-t">Seçilmedi</span></div><button class="btn quiet" id="s-cookiefile">Dosya seç</button></div>
+        </div>
+
+        <div class="gtitle">Uygulama ve motorlar</div>
+        <div class="card settings">
+          <div class="srow"><div><b>İndirme motorunu otomatik güncelle</b><span>Sitelerde değişiklik olduğunda indirmelerin çalışmaya devam etmesi için günde bir kez denetlenir.</span></div><label class="switch"><input type="checkbox" id="s-autoUpdate"><i></i></label></div>
+          <div class="srow"><div><b>Sürüm bilgileri</b><span id="s-versions">Okunuyor…</span></div><button class="btn quiet" id="s-engine">Şimdi güncelle</button></div>
+        </div>
+
+        <div class="gtitle">Sistem</div>
+        <div class="card settings">
+          <div class="srow"><div><b>Bildirimler</b><span>İşlemler tamamlandığında masaüstü bildirimi gösterilir.</span></div><label class="switch"><input type="checkbox" id="s-notify"><i></i></label></div>
+          <div class="srow"><div><b>Tamamlanınca klasörü aç</b><span>İndirme veya dönüştürme bittiğinde hedef klasör açılır.</span></div><label class="switch"><input type="checkbox" id="s-openDone"><i></i></label></div>
+          <div class="srow"><div><b>Panodaki bağlantıları algıla</b><span>Bir bağlantı kopyalandığında listeye eklemeniz önerilir.</span></div><label class="switch"><input type="checkbox" id="s-clip"><i></i></label></div>
+          <div class="srow"><div><b id="t-autoStart">Windows ile birlikte başlat</b><span>Oturum açıldığında uygulama otomatik olarak çalışır.</span></div><label class="switch"><input type="checkbox" id="s-autoStart"><i></i></label></div>
+          <div class="srow"><div><b id="t-tray">Kapatıldığında sistem tepsisine küçült</b><span>Kaynak takibi ve zamanlı işlemler arka planda sürer.</span></div><label class="switch"><input type="checkbox" id="s-tray"><i></i></label></div>
+          <div class="srow"><div><b>Kaynak takibi denetim aralığı</b><span>Takipteki kaynaklar bu sıklıkta denetlenir.</span></div>
+            <select id="s-followMin"><option value="0">Otomatik denetim kapalı</option><option value="15">15 dakika</option><option value="30">30 dakika</option><option value="60">1 saat</option><option value="180">3 saat</option><option value="360">6 saat</option><option value="720">12 saat</option></select></div>
+          <div class="srow"><div><b>Varsayılan ayarlara dön</b><span>Tüm tercihler fabrika değerlerine sıfırlanır.</span></div><button class="btn quiet" id="s-reset">Sıfırla</button></div>
+        </div>
+        <div class="gtitle">Yasal</div>
+        <div class="card settings">
+          <div class="srow"><div><b>Geliştiriciler</b><span>Şahin Downloader, Taha Uğurlu tarafından geliştirilmiştir.</span></div>
+            <button class="btn quiet" id="s-linkedin"><svg class="brand-ic"><use href="#i-linkedin"/></svg>LinkedIn</button></div>
+          <div class="srow"><div><b>Kullanım sorumluluğu</b><span>Uygulama yalnızca telif haklarının size ait olduğu veya indirilmesine izin verilen içerikler için kullanılmalıdır. İçerik sağlayıcıların hizmet koşullarına ve yürürlükteki mevzuata uymak kullanıcının sorumluluğundadır.</span></div></div>
+          <div class="srow"><div><b>Lisans</b><span>© 2026 Taha Uğurlu. Uygulamanın kodu MIT lisansıyla sunulur. İndirme motoru yt-dlp, galeri motoru gallery-dl ve dönüştürme motoru ffmpeg kendi lisanslarına tabidir.</span></div></div>
+          <div class="srow col"><div><b>Kullanılan kütüphaneler ve bileşenler</b><span>Aşağıdaki bileşenlerin her biri kendi lisansıyla sunulur ve ilgili hak sahiplerine aittir.</span></div>
+            <div class="deps">
+              <div class="dep"><b>Electron 33</b><i>MIT</i><span>Masaüstü uygulama çatısı. Chromium ve Node.js bileşenlerini içerir; bunlar kendi lisanslarına tabidir.</span></div>
+              <div class="dep"><b>Node.js</b><i>MIT</i><span>Pakete eklenir. YouTube bağlantılarının şifre çözme adımında JavaScript çalıştırıcısı olarak kullanılır.</span></div>
+              <div class="dep"><b>yt-dlp</b><i>Unlicense</i><span>İndirme motoru. Pakete eklenmez; ilk açılışta indirilir ve günde bir kez güncellenir.</span></div>
+              <div class="dep"><b>gallery-dl</b><i>GPL-2.0</i><span>Fotoğraf galerileri için indirme motoru. Pakete eklenmez; ilk kullanımda indirilir.</span></div>
+              <div class="dep"><b>FFmpeg (ffmpeg-static 5.3)</b><i>GPL-3.0-or-later</i><span>Dönüştürme, birleştirme, kırpma, etiket ve kapak işlemleri.</span></div>
+              <div class="dep"><b>electron-builder</b><i>MIT</i><span>Yalnızca paket oluşturma sırasında kullanılır; uygulamanın içinde bulunmaz.</span></div>
+              <div class="dep"><b>Wikimedia Commons ve Openverse</b><i>Açık arayüz</i><span>Görsel Arama sayfasındaki sonuçlar ve lisans bilgileri bu hizmetlerden alınır.</span></div>
+            </div></div>
+          <div class="srow col"><div><b>Çalışma prensibi</b></div>
+            <ol class="how">
+              <li><b>Yapı.</b> Uygulama Electron üzerinde çalışır. Dosya, ağ ve alt süreç işlemlerini ana süreç yürütür; arayüz yalnızca güvenli bir köprü üzerinden ana süreçle konuşur. Bağlam yalıtımı açıktır, arayüze doğrudan Node.js erişimi verilmez.</li>
+              <li><b>İndirme.</b> Eklenen bağlantı türüne göre çözümlenir. Video ve ses için yt-dlp, fotoğraf galerileri için gallery-dl, doğrudan dosya bağlantıları için HTTP kullanılır. Her indirme kuyruğa alınır; eş zamanlı sayı, duraklatma ve sıralama kuyruk tarafından yönetilir.</li>
+              <li><b>İşleme.</b> İndirilen akışlar FFmpeg ile birleştirilir; seçilen biçime dönüştürülür, istenirse kırpılır, ses düzeyi dengelenir, kapak ve etiket bilgisi dosyaya işlenir.</li>
+              <li><b>Spotify.</b> Spotify içerikleri DRM ile korunduğundan doğrudan indirilemez. Şarkı adı ve sanatçı bilgisiyle eşleşen kaynaktan alınır; ad, sanatçı ve kapak bilgisi dosyaya işlenir.</li>
+              <li><b>Dönüştürme ve etiketler.</b> Bilgisayarınızdaki dosyalar, internet bağlantısı gerekmeden FFmpeg ile yerelde dönüştürülür ve düzenlenir.</li>
+              <li><b>Veriler.</b> Ayarlar, geçmiş ve takip listesi yalnızca bilgisayarınızdaki uygulama klasöründe tutulur. Uygulama kullanımınıza ilişkin veriyi geliştiricilere göndermez; ağ erişimi yalnızca istediğiniz içerikler, motor güncellemeleri ve görsel arama için yapılır.</li>
+            </ol></div>
+        </div>
+        <p class="note" style="margin:14px 2px 24px">Şahin Downloader 2.0 · İndirme motoru yt-dlp, dönüştürme motoru ffmpeg.</p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="toasts"></div>
+
+<div class="modal hidden" id="promptModal"><div class="modal-box left">
+  <h2 id="pm-title">Ön ayar</h2>
+  <label class="fld col"><span>Ad</span><input type="text" id="pm-name" maxlength="40"></label>
+  <label class="fld col"><span>Açıklama (isteğe bağlı)</span><input type="text" id="pm-desc" maxlength="90"></label>
+  <label class="check hidden" id="pm-upd-wrap"><input type="checkbox" id="pm-upd"> Ayarları şu anki seçeneklerle güncelle</label>
+  <div class="hint" id="pm-sum"></div>
+  <div class="row" style="margin-top:6px"><span class="sp"></span>
+    <button class="btn quiet" id="pm-cancel">Vazgeç</button><button class="btn primary" id="pm-ok">Kaydet</button></div>
+</div></div>
+
+<div class="modal hidden" id="prevModal"><div class="modal-box wide">
+  <div class="row"><b id="pv-title" class="pv-title"></b><span class="sp"></span><button class="iconbtn" id="pv-close" title="Kapat"><svg><use href="#i-x"/></svg></button></div>
+  <div id="pv-body" class="pv-body"></div>
+  <div class="row" id="pv-acts" style="justify-content:flex-end"></div>
+</div></div>
+<div class="modal hidden" id="shutModal"><div class="modal-box">
+  <svg class="big"><use href="#i-power"/></svg>
+  <h2>Bilgisayar kapatılıyor</h2>
+  <p>Tüm işlemler tamamlandı. Bilgisayar <b id="shutSec">60</b> saniye içinde kapanacak.</p>
+  <button class="btn primary" id="shutCancel">Kapatmayı iptal et</button>
+</div></div>
+<script src="renderer.js"></script>
+</body>
+</html>

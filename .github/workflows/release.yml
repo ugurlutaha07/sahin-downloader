@@ -1,0 +1,57 @@
+name: Release
+# "v2.0.1" gibi bir etiket (tag) gönderildiğinde Windows, macOS ve Linux paketlerini derler
+# ve GitHub Sürümleri (Releases) sayfasına ekler. Elle de çalıştırılabilir.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            script: dist:win
+          - os: macos-latest
+            script: dist:mac
+          - os: ubuntu-latest
+            script: dist:linux
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      # package-lock.json npm 11 ile üretildi; Node 22'nin gömülü npm'i ile uyuşmuyor
+      - run: npm install -g npm@11
+      - run: npm ci
+      - run: npm test
+      - run: npm run ${{ matrix.script }}
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'   # kod imzalama yok
+      - uses: actions/upload-artifact@v4
+        with:
+          name: paket-${{ matrix.os }}
+          path: |
+            dist/*.exe
+            dist/*.zip
+            dist/*.dmg
+            dist/*.AppImage
+            dist/*.deb
+          if-no-files-found: error
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { path: paketler, merge-multiple: true }
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: paketler/*
+          generate_release_notes: true

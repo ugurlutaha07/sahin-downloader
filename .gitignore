@@ -1,0 +1,28 @@
+# Bağımlılıklar ve derleme çıktıları
+node_modules/
+dist/
+out/
+
+# Derleme sırasında kopyalanan Node.js (scripts/bundle-node.js)
+runtime-bundle/*
+!runtime-bundle/.gitkeep
+
+# Günlükler ve sistem dosyaları
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editör / araç klasörleri
+.vscode/
+.idea/
+
+# Yerel veriler (uygulama verisi kullanıcı klasöründe tutulur; yanlışlıkla eklenmesin)
+settings.json
+history.json
+follows.json
+*.part
+
+# Yerel dağıtım betiği (yalnızca geliştiricinin kendi bilgisayarı için)
+deploy.ps1

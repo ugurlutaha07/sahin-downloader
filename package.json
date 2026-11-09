@@ -1,0 +1,128 @@
+{
+  "name": "sahin-downloader",
+  "productName": "Şahin Downloader",
+  "version": "2.0.0",
+  "description": "Video, ses ve görsel indirici; biçim dönüştürücü ve etiket düzenleyici",
+  "author": "Taha Uğurlu",
+  "license": "MIT",
+  "keywords": [
+    "downloader",
+    "youtube",
+    "mp3",
+    "mp4",
+    "converter",
+    "electron",
+    "yt-dlp",
+    "ffmpeg"
+  ],
+  "main": "main.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "prestart": "node scripts/dev-brand.js",
+    "start": "electron .",
+    "test": "node --test",
+    "icons": "electron build/make-icons.js",
+    "predist:win": "node scripts/bundle-node.js",
+    "dist:win": "electron-builder --win --publish never",
+    "predist:mac": "node scripts/bundle-node.js",
+    "dist:mac": "electron-builder --mac --arm64 --publish never && electron-builder --mac --x64 --publish never",
+    "predist:linux": "node scripts/bundle-node.js",
+    "dist:linux": "electron-builder --linux --publish never"
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.2.0"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.sahin.downloader",
+    "productName": "Şahin Downloader",
+    "artifactName": "Sahin-Downloader-${version}-${os}-${arch}.${ext}",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "lib.js",
+      "index.html",
+      "renderer.js",
+      "styles.css",
+      "build/icon*.png",
+      "build/icon.ico",
+      "package.json"
+    ],
+    "asarUnpack": [
+      "**/node_modules/ffmpeg-static/**"
+    ],
+    "extraResources": [
+      {
+        "from": "runtime-bundle/${arch}",
+        "to": "node",
+        "filter": [
+          "node",
+          "node.exe"
+        ]
+      }
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "Şahin Downloader"
+    },
+    "mac": {
+      "category": "public.app-category.video",
+      "icon": "build/icon-mac.png",
+      "target": [
+        "dmg"
+      ],
+      "identity": null
+    },
+    "dmg": {
+      "title": "Sahin Downloader"
+    },
+    "linux": {
+      "icon": "build/icon.png",
+      "category": "AudioVideo",
+      "maintainer": "Taha Uğurlu",
+      "synopsis": "Video, ses ve görsel indirici",
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "afterPack": "scripts/after-pack.js"
+  }
+}
